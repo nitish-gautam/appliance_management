@@ -1,0 +1,82 @@
+/* App.css */
+.app-container {
+  background-color: #f5f6fa;
+  min-height: 100vh;
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Header */
+.header-container {
+  background-color: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.header-container h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* Property details card */
+.property-card {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 4px;
+}
+
+.property-info {
+  flex: 1;
+}
+
+.property-info h4 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.property-meta span {
+  margin-right: 15px;
+  font-size: 14px;
+}
+
+/* Shipping label section */
+.barcode-section img {
+  max-width: 220px;
+}
+
+/* Replacement table */
+.replacement-table {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.replacement-table h5 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Order button */
+.order-btn {
+  background-color: #4c8ef7;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.order-btn:hover {
+  background-color: #3c7dd9;
+}

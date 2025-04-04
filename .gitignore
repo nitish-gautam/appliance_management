@@ -5,8 +5,7 @@ __pycache__/
 
 #custom
 venv/
-*.vscode/
-node_modules/
+**/node_modules/
 
 # C extensions
 *.so
@@ -140,4 +139,3 @@ dmypy.json
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-frontend/.env.development
