@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: django-backend
+    volumes:
+      - ./backend:/app
+      - ./backend/media:/app/media
+      - ./backend/staticfiles:/app/staticfiles
+      - ./backend/db.sqlite3:/app/db.sqlite3
+    environment:
+      - DEBUG=1
+      - DB_ENGINE=django.db.backends.sqlite3
+      - DB_NAME=/app/db.sqlite3
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com
+      - DJANGO_SUPERUSER_PASSWORD=admin123
+    expose:
+      - "8000"
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             if ! python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); print(User.objects.filter(username='admin').exists())\" | grep -q True; then 
+               python manage.py createsuperuser --noinput;
+             fi &&
+             gunicorn appliance_management.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./backend/media:/app/media
+      - ./backend/staticfiles:/app/staticfiles
+    depends_on:
+      - backend
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: react-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+      - nginx
+
+volumes:
+  media_volume:
+  static_volume:
